@@ -1,0 +1,13 @@
+file 's1.png'
+duration 2.6
+file 's2.png'
+duration 3.6
+file 's3.png'
+duration 3.2
+file 's4.png'
+duration 4.4
+file 's5.png'
+duration 3.6
+file 's6.png'
+duration 3.0
+file 's6.png'

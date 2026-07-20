@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>CiteSafe keynote frame</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body {
+      width: 1920px; height: 1080px; overflow: hidden;
+      font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background: #f7f8fa;
+      color: #0f172a;
+    }
+    body.dark { background: #05070c; color: #f8fafc; }
+    #stage {
+      width: 1920px; height: 1080px; position: relative;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .type {
+      font-weight: 600;
+      letter-spacing: -0.04em;
+      line-height: 1.1;
+      text-align: center;
+      max-width: 1400px;
+      padding: 0 80px;
+    }
+    .type.xl { font-size: 72px; }
+    .type.lg { font-size: 56px; }
+    .type.md { font-size: 40px; }
+    .type.sm { font-size: 22px; font-weight: 500; letter-spacing: -0.02em; color: #64748b; }
+    .type.green { color: #16a34a; }
+    .type.red { color: #dc2626; }
+    .type.blue { color: #2563eb; }
+    .type.dim { color: #94a3b8; }
+    .type.white { color: #f8fafc; }
+    .type.white-dim { color: rgba(248,250,252,0.42); }
+    .label {
+      font-size: 13px; font-weight: 650; letter-spacing: 0.22em;
+      text-transform: uppercase; color: #94a3b8; margin-bottom: 28px; text-align: center;
+    }
+    .stack { display: flex; flex-direction: column; align-items: center; gap: 20px; }
+
+    /* Floating product window */
+    .win-wrap {
+      transform-origin: center center;
+      will-change: transform, opacity;
+    }
+    .win {
+      width: 980px;
+      background: #fff;
+      border-radius: 22px;
+      box-shadow:
+        0 50px 120px rgba(15, 23, 42, 0.14),
+        0 0 0 1px rgba(15, 23, 42, 0.05);
+      overflow: hidden;
+    }
+    .win.zoom-fail {
+      box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.35), 0 50px 120px rgba(15, 23, 42, 0.18);
+    }
+    .bar {
+      height: 46px; background: #f8fafc;
+      border-bottom: 1px solid #eef2f7;
+      display: flex; align-items: center; padding: 0 18px; gap: 8px;
+    }
+    .dot { width: 11px; height: 11px; border-radius: 50%; }
+    .d1 { background: #ff5f57; } .d2 { background: #febc2e; } .d3 { background: #28c840; }
+    .url { margin-left: 14px; font-size: 13px; color: #64748b; font-weight: 500; }
+    .body { padding: 28px 32px 34px; }
+    .brand {
+      display: flex; align-items: center; gap: 10px; margin-bottom: 18px;
+      font-size: 18px; font-weight: 650; letter-spacing: -0.03em;
+    }
+    .brand b { color: #2563eb; font-weight: 650; }
+    .mark {
+      width: 32px; height: 32px; border-radius: 9px;
+      background: linear-gradient(145deg, #3b82f6, #1d4ed8);
+    }
+    .ta {
+      border: 1px solid #e2e8f0; border-radius: 14px;
+      padding: 18px 20px; min-height: 120px;
+      font-size: 17px; line-height: 1.55; color: #0f172a;
+      background: #f8fafc; white-space: pre-wrap;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    .ta .caret {
+      display: inline-block; width: 2px; height: 1.1em;
+      background: #2563eb; vertical-align: text-bottom;
+      margin-left: 1px;
+    }
+    .cards { margin-top: 16px; display: flex; flex-direction: column; gap: 10px; }
+    .card {
+      border: 1px solid #e2e8f0; border-radius: 14px;
+      padding: 14px 16px; display: flex; gap: 12px; align-items: flex-start;
+      background: #fff;
+      opacity: 0; transform: translateY(12px);
+    }
+    .card.show { opacity: 1; transform: translateY(0); }
+    .card.fail { border-color: #fecaca; background: #fffafa; }
+    .dot-s { width: 10px; height: 10px; border-radius: 50%; margin-top: 5px; flex-shrink: 0; }
+    .g { background: #16a34a; } .r { background: #dc2626; }
+    .cite { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 14px; font-weight: 600; }
+    .meta { font-size: 12px; font-weight: 700; margin-top: 4px; }
+    .ok { color: #16a34a; } .bad { color: #dc2626; }
+
+    .checks { display: flex; flex-direction: column; gap: 18px; align-items: flex-start; }
+    .check-row {
+      font-size: 36px; font-weight: 600; letter-spacing: -0.03em;
+      color: #cbd5e1; display: flex; align-items: center; gap: 14px;
+      opacity: 0.35;
+    }
+    .check-row.on { color: #16a34a; opacity: 1; }
+    .check-row .box {
+      width: 34px; height: 34px; border-radius: 10px;
+      border: 2px solid currentColor; display: flex; align-items: center; justify-content: center;
+      font-size: 20px;
+    }
+
+    .export-btn {
+      display: inline-flex; margin-top: 22px;
+      background: #2563eb; color: #fff; font-weight: 700;
+      font-size: 15px; padding: 14px 28px; border-radius: 999px;
+      box-shadow: 0 12px 30px rgba(37, 99, 235, 0.28);
+    }
+    .export-btn.pressed { transform: scale(0.97); background: #1d4ed8; }
+
+    /* Cursor removed — product film only (no mouse / click ripple) */
+    #cursor, #click-ripple { display: none !important; }
+  </style>
+</head>
+<body>
+  <div id="stage">
+    <div id="content"></div>
+  </div>
+  <script>
+    const params = new URLSearchParams(location.search);
+    const f = Math.max(0, parseInt(params.get("f") || "0", 10));
+    // 24 fps = smooth mouse; was 10 (steppy)
+    const FPS = 24;
+    const t = f / FPS;
+
+    const memoFull =
+      "Brown v. Board of Education, 347 U.S. 483 (1954).\n\n" +
+      "Loving v. Virginia, 388 U.S. 1 (1967).\n\n" +
+      "Smith v. Imaginary Holdings, 999 F.99 1 (2099).";
+
+    // smoothstep (ease in-out)
+    function ease(a, b, p) {
+      const x = Math.min(1, Math.max(0, p));
+      const s = x * x * (3 - 2 * x);
+      return a + (b - a) * s;
+    }
+    // stronger ease for long mouse travels (no linear jerk)
+    function easeOutCubic(a, b, p) {
+      const x = Math.min(1, Math.max(0, p));
+      const s = 1 - Math.pow(1 - x, 3);
+      return a + (b - a) * s;
+    }
+    function easeInOutQuint(a, b, p) {
+      const x = Math.min(1, Math.max(0, p));
+      const s = x < 0.5
+        ? 16 * x * x * x * x * x
+        : 1 - Math.pow(-2 * x + 2, 5) / 2;
+      return a + (b - a) * s;
+    }
+    function clamp01(x) { return Math.min(1, Math.max(0, x)); }
+    function local(start) { return t - start; }
+
+    const content = document.getElementById("content");
+    const body = document.body;
+
+    // No mouse in the film.
+    function setCursor() {}
+    function cursorAlong() {}
+
+    function typeScene(text, title, sub) {
+      body.className = "";
+      content.innerHTML =
+        '<div class="stack">' +
+        (title ? '<div class="label">' + title + "</div>" : "") +
+        '<div class="type xl">' + text + "</div>" +
+        (sub ? '<div class="type sm">' + sub + "</div>" : "") +
+        "</div>";
+      setCursor(0, 0, false);
+    }
+
+    function typeSceneDark(text, sub) {
+      body.className = "dark";
+      content.innerHTML =
+        '<div class="stack">' +
+        '<div class="type xl white">' + text + "</div>" +
+        (sub ? '<div class="type sm white-dim">' + sub + "</div>" : "") +
+        "</div>";
+      setCursor(0, 0, false);
+    }
+
+    // Timeline (seconds)
+    // 0-9 problem / meet
+    // 9-14 open product + smooth cursor enter
+    // 14-24 typing (cursor drifts with caret, no jumps)
+    // 24-30.5 cards
+    // 30.5-38.5 verify rows with smooth glide
+    // 38.5-45 export
+    // 45-52 close
+
+    if (t < 1.8) {
+      typeScene("One citation.", "");
+    } else if (t < 3.4) {
+      typeScene("Source?", "");
+    } else if (t < 5.0) {
+      typeScene('<span class="red">Hallucinated.</span>', "");
+    } else if (t < 6.6) {
+      typeScene("Lost thirty minutes.", "");
+    } else if (t < 9.0) {
+      typeScene('Meet Cite<span class="blue">Safe</span>.', "");
+    } else if (t < 14) {
+      // Open product — float in + slow zoom
+      body.className = "";
+      const p = clamp01(local(9) / 1.4);
+      const sc = ease(0.9, 1.02, p);
+      const op = ease(0, 1, p);
+      content.innerHTML =
+        '<div class="win-wrap" style="opacity:' + op + ";transform:scale(" + sc + ')">' +
+        windowChrome("citesafe.co", false, "", 0) +
+        "</div>";
+      // Long glide in from bottom-right → textarea, pause, soft click
+      cursorAlong(
+        [
+          { t: 9.8, x: 1720, y: 900 },
+          { t: 11.5, x: 1180, y: 540 },
+          { t: 12.5, x: 1120, y: 500 },
+          { t: 12.65, x: 1120, y: 500, click: 1 },
+          { t: 13.4, x: 1120, y: 500 },
+          { t: 13.95, x: 1140, y: 520 },
+        ],
+        t
+      );
+    } else if (t < 24) {
+      // Typing + slow zoom — cursor follows caret progress smoothly (no % jump)
+      body.className = "";
+      const typeP = clamp01(local(14) / 8.5);
+      const typedLen = Math.floor(typeP * memoFull.length);
+      const typed = memoFull.slice(0, typedLen);
+      const showCaret = Math.floor(t * 3) % 2 === 0;
+      const z = ease(1.0, 1.08, clamp01(local(14) / 9));
+      content.innerHTML =
+        '<div class="win-wrap" style="opacity:1;transform:scale(' + z + ')">' +
+        windowChrome("citesafe.co", true, typed, showCaret ? 1 : 0) +
+        "</div>";
+      // Soft path along typing: start near paste area → drift with text growth
+      // Slight sine for organic micro-motion (not discrete jumps)
+      const baseX = easeInOutQuint(1140, 1260, typeP);
+      const baseY = easeInOutQuint(520, 600, typeP);
+      const wobX = Math.sin(typeP * Math.PI * 2.2) * 6;
+      const wobY = Math.sin(typeP * Math.PI * 1.4 + 0.5) * 4;
+      setCursor(baseX + wobX, baseY + wobY, true, false);
+    } else if (t < 30.5) {
+      // Cards cascade + zoom toward fail card
+      body.className = "";
+      const p = local(24);
+      const c1 = p > 0.4, c2 = p > 1.1, c3 = p > 1.9;
+      const z = ease(1.06, 1.14, clamp01(p / 4));
+      const zoomFail = p > 3.2;
+      content.innerHTML =
+        '<div class="win-wrap" style="transform:scale(' + z + ')">' +
+        resultsWindow(c1, c2, c3, zoomFail) +
+        "</div>";
+      cursorAlong(
+        [
+          { t: 24.0, x: 1260, y: 600 },
+          { t: 25.2, x: 1180, y: 540 },
+          { t: 26.4, x: 1120, y: 580 },
+          { t: 27.6, x: 1080, y: 640 },
+          { t: 28.8, x: 1040, y: 680 },
+          { t: 29.5, x: 1040, y: 700, click: 1 },
+          { t: 30.4, x: 1040, y: 700 },
+        ],
+        t
+      );
+    } else if (t < 38.5) {
+      // Sequential verify — glide row-to-row, never snap
+      body.className = "";
+      const p = local(30.5);
+      const cycle = 1.35;
+      const n = Math.min(5, Math.floor(p / cycle) + 1);
+      const items = [
+        "Case found",
+        "Reporter form",
+        "Year present",
+        "Risk assessed",
+        "Ready for review",
+      ];
+      let rows = items
+        .map(function (label, i) {
+          const on = i < n;
+          return (
+            '<div class="check-row' +
+            (on ? " on" : "") +
+            '"><div class="box">' +
+            (on ? "✓" : "") +
+            "</div>" +
+            label +
+            "</div>"
+          );
+        })
+        .join("");
+      const z = 1.04;
+      content.innerHTML =
+        '<div class="stack" style="align-items:flex-start;transform:scale(' + z + ')">' +
+        '<div class="label" style="align-self:center;width:100%">Verify</div>' +
+        '<div class="checks">' +
+        rows +
+        "</div></div>";
+      // Build continuous path through each check row
+      const rowKeys = [];
+      for (let i = 0; i < 5; i++) {
+        const y = 380 + i * 58;
+        const t0 = 30.5 + i * cycle;
+        if (i === 0) {
+          rowKeys.push({ t: t0, x: 900, y: y + 20 });
+          rowKeys.push({ t: t0 + 0.35, x: 760, y: y });
+        } else {
+          rowKeys.push({ t: t0, x: 760, y: 380 + (i - 1) * 58 });
+          rowKeys.push({ t: t0 + 0.45, x: 760, y: y });
+        }
+        rowKeys.push({ t: t0 + 0.55, x: 760, y: y, click: 1 });
+        rowKeys.push({ t: t0 + 1.1, x: 760, y: y });
+      }
+      cursorAlong(rowKeys, t);
+    } else if (t < 45) {
+      // Export + zoom + click — long smooth approach
+      body.className = "";
+      const p = local(38.5);
+      const pressed = p > 2.2 && p < 2.65;
+      const done = p >= 2.65;
+      const z = ease(1.0, 1.12, clamp01(p / 2.5));
+      content.innerHTML =
+        '<div class="win-wrap" style="transform:scale(' + z + ')">' +
+        exportWindow(done, pressed) +
+        "</div>";
+      cursorAlong(
+        [
+          { t: 38.5, x: 760, y: 612 },
+          { t: 39.6, x: 860, y: 680 },
+          { t: 40.7, x: 960, y: 650 },
+          { t: 41.5, x: 980, y: 640 },
+          { t: 42.7, x: 980, y: 640, click: 1 },
+          { t: 43.5, x: 980, y: 640 },
+          { t: 44.8, x: 1000, y: 620 },
+        ],
+        t
+      );
+    } else if (t < 47.2) {
+      typeSceneDark("Research.", "");
+    } else if (t < 49.2) {
+      typeSceneDark("Verified.", "");
+    } else if (t < 51.2) {
+      typeSceneDark("Ready.", "");
+    } else {
+      typeSceneDark(
+        'Cite<span style="color:#60a5fa">Safe</span>',
+        "Trusted."
+      );
+    }
+
+    function windowChrome(url, withText, text, caret) {
+      return (
+        '<div class="win"><div class="bar">' +
+        '<span class="dot d1"></span><span class="dot d2"></span><span class="dot d3"></span>' +
+        '<span class="url">' +
+        url +
+        "</span></div><div class=\"body\">" +
+        '<div class="brand"><div class="mark"></div>Cite<b>Safe</b></div>' +
+        (withText
+          ? '<div class="ta">' +
+            escapeHtml(text) +
+            (caret ? '<span class="caret"></span>' : "") +
+            "</div>"
+          : '<div class="ta" style="color:#94a3b8">Paste a brief, memo, or citations to verify…</div>') +
+        "</div></div>"
+      );
+    }
+
+    function resultsWindow(c1, c2, c3, zoomFail) {
+      return (
+        '<div class="win' + (zoomFail ? " zoom-fail" : "") + '"><div class="bar">' +
+        '<span class="dot d1"></span><span class="dot d2"></span><span class="dot d3"></span>' +
+        '<span class="url">citesafe.co · Scout 1.0</span></div><div class="body">' +
+        '<div style="font-size:15px;font-weight:650;margin-bottom:4px">3 citations</div>' +
+        '<div class="cards">' +
+        card(
+          "Brown v. Board of Education, 347 U.S. 483 (1954)",
+          "Verified · 98%",
+          false,
+          c1
+        ) +
+        card(
+          "Loving v. Virginia, 388 U.S. 1 (1967)",
+          "Verified · 97%",
+          false,
+          c2
+        ) +
+        card(
+          "Smith v. Imaginary Holdings, 999 F.99 1 (2099)",
+          "Could Not Verify · fabrication risk",
+          true,
+          c3
+        ) +
+        "</div></div></div>"
+      );
+    }
+
+    function card(cite, meta, fail, show) {
+      return (
+        '<div class="card' +
+        (fail ? " fail" : "") +
+        (show ? " show" : "") +
+        '"><div class="dot-s ' +
+        (fail ? "r" : "g") +
+        '"></div><div><div class="cite">' +
+        cite +
+        '</div><div class="meta ' +
+        (fail ? "bad" : "ok") +
+        '">' +
+        meta +
+        "</div></div></div>"
+      );
+    }
+
+    function exportWindow(done, pressed) {
+      return (
+        '<div class="win"><div class="bar">' +
+        '<span class="dot d1"></span><span class="dot d2"></span><span class="dot d3"></span>' +
+        '<span class="url">Export</span></div><div class="body" style="text-align:center;padding:48px 40px">' +
+        (done
+          ? '<div style="font-size:34px;font-weight:650;letter-spacing:-.03em">Statuses saved.</div>' +
+            '<div style="margin-top:12px;font-size:17px;color:#64748b">Before production. Before filing.</div>'
+          : '<div style="font-size:15px;font-weight:700;color:#2563eb;letter-spacing:.14em;text-transform:uppercase">Export report</div>' +
+            '<div style="font-size:34px;font-weight:650;letter-spacing:-.03em;margin-top:14px">One click.</div>' +
+            '<div class="export-btn' +
+            (pressed ? " pressed" : "") +
+            '">Export</div>') +
+        "</div></div>"
+      );
+    }
+
+    function escapeHtml(s) {
+      return String(s)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;");
+    }
+  </script>
+</body>
+</html>

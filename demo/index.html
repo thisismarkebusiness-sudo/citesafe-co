@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>CiteSafe · Product keynote</title>
+  <meta name="description" content="Verified. Every citation. The future of legal research is trusted." />
+  <style>
+    *{box-sizing:border-box}
+    body{margin:0;min-height:100vh;font-family:system-ui,sans-serif;background:#05070c;color:#f8fafc;padding:36px 16px 64px}
+    .wrap{max-width:960px;margin:0 auto}
+    .badge{text-align:center;font-size:11px;font-weight:650;letter-spacing:.28em;text-transform:uppercase;color:rgba(147,197,253,.9);margin-bottom:16px}
+    h1{text-align:center;font-size:clamp(1.8rem,4vw,2.75rem);font-weight:600;letter-spacing:-.04em;line-height:1.1;margin:0 0 12px}
+    h1 .dim{color:rgba(248,250,252,.4)}
+    .sub{text-align:center;color:rgba(248,250,252,.5);font-size:15px;max-width:28rem;margin:0 auto 24px;line-height:1.55}
+    .frame{position:relative;border-radius:18px;overflow:hidden;border:1px solid rgba(255,255,255,.1);box-shadow:0 40px 120px rgba(0,0,0,.65);background:#000}
+    video{width:100%;display:block;background:#000}
+    .btn{position:absolute;bottom:56px;right:12px;z-index:5;border:1px solid rgba(255,255,255,.3);background:rgba(0,0,0,.8);color:#fff;font-size:12px;font-weight:700;padding:10px 14px;border-radius:999px;cursor:pointer}
+    .cap{text-align:center;margin-top:18px;font-size:14px;color:rgba(248,250,252,.4)}
+    .actions{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin-top:28px}
+    a.p{background:#2563eb;color:#fff;text-decoration:none;font-weight:650;font-size:13px;padding:12px 20px;border-radius:999px}
+    a.g{color:#fff;text-decoration:none;font-weight:650;font-size:13px;padding:12px 20px;border-radius:999px;border:1px solid rgba(255,255,255,.2)}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="badge">Product keynote · Scout 1.0</div>
+    <h1>Verified.<br><span class="dim">Every citation.</span></h1>
+    <p class="sub">Research. Doubt. Confidence to submit. The future of legal research isn&apos;t faster. It&apos;s trusted.</p>
+    <div class="frame">
+      <video id="v" controls playsinline loop preload="auto" poster="keynote/frames/f0840.png" src="keynote.mp4?v=kn6"></video>
+      <button type="button" class="btn" id="b">Play with sound</button>
+    </div>
+    <p class="cap">Smooth pacing. Typing. Zoom. Soft UI sound. No voiceover essay.</p>
+    <div class="actions">
+      <a class="p" href="/">Try the check</a>
+      <a class="g" href="/extension/">Chrome extension</a>
+    </div>
+  </div>
+  <script>
+    const v = document.getElementById("v");
+    const b = document.getElementById("b");
+    v.volume = 1;
+    function on() {
+      v.muted = false; v.volume = 1;
+      return v.play().then(function(){ b.textContent = "Sound on"; });
+    }
+    on().catch(function(){ v.muted = true; v.play().catch(function(){}); b.textContent = "Tap for sound"; });
+    b.onclick = function(){ on().catch(function(){}); };
+  </script>
+</body>
+</html>

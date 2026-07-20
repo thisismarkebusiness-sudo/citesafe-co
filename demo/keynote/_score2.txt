@@ -1,0 +1,15 @@
+sine=frequency=196:duration=52[g1];
+sine=frequency=247:duration=52[g2];
+sine=frequency=294:duration=52[g3];
+sine=frequency=55:duration=52[b1];
+sine=frequency=82:duration=52[b2];
+anoisesrc=color=pink:d=52:amplitude=0.3[n0];
+aevalsrc=exprs='0.0001*sin(2*PI*1200*t)*exp(-35*mod(t+0.001,1))':s=44100:d=52[tick];
+[g1]volume=0.04,afade=t=in:st=8:d=4,afade=t=out:st=48:d=3,tremolo=f=0.08:d=0.4[a1];
+[g2]volume=0.03,afade=t=in:st=10:d=4,afade=t=out:st=47:d=4,tremolo=f=0.11:d=0.35[a2];
+[g3]volume=0.025,afade=t=in:st=14:d=3,afade=t=out:st=46:d=4[a3];
+[b1]volume=0.08,lowpass=f=100,afade=t=in:st=8:d=3,afade=t=out:st=48:d=3[a4];
+[b2]volume=0.05,lowpass=f=120,afade=t=in:st=9:d=3,afade=t=out:st=48:d=3[a5];
+[n0]volume=0.02,lowpass=f=400,afade=t=in:st=8:d=4[a6];
+[tick]volume=0.9,aformat=sample_fmts=fltp[a7];
+[a1][a2][a3][a4][a5][a6][a7]amix=inputs=7:normalize=0,alimiter=limit=0.75,volume=1.35[aout]

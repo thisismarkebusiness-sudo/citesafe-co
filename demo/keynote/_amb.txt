@@ -1,0 +1,9 @@
+sine=frequency=48:duration=40[s1];
+sine=frequency=72:duration=40[s2];
+sine=frequency=96:duration=40[s3];
+anoisesrc=color=pink:d=40:amplitude=0.5[n0];
+[s1]volume=0.22,afade=t=in:st=7:d=3,afade=t=out:st=36:d=3.5[a1];
+[s2]volume=0.12,afade=t=in:st=8:d=3,afade=t=out:st=36:d=3.5[a2];
+[s3]volume=0.06,tremolo=f=0.15:d=0.5,afade=t=in:st=10:d=2,afade=t=out:st=35:d=4[a3];
+[n0]volume=0.04,lowpass=f=300,afade=t=in:st=7:d=4[n1];
+[a1][a2][a3][n1]amix=inputs=4:normalize=0,alimiter=limit=0.85,volume=1.2[aout]

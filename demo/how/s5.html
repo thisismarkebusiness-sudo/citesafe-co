@@ -1,0 +1,66 @@
+﻿<!DOCTYPE html><html><head><meta charset=utf-8><style>*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;background:#f4f2ee;color:#0f172a;width:1920px;height:1080px;overflow:hidden;position:relative}
+.bg{position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 50% 30%,#fff 0%,#f4f2ee 55%,#e8eef8 100%)}
+.corner{position:absolute;top:48px;left:56px;font-size:18px;font-weight:700;letter-spacing:.04em;color:#2563eb}
+.corner span{color:#0f172a}
+.badge{position:absolute;top:48px;right:56px;font-size:14px;font-weight:650;color:#64748b;background:#fff;border:1px solid #e2e8f0;padding:8px 14px;border-radius:999px}
+.caption{position:absolute;left:0;right:0;bottom:72px;text-align:center;font-size:42px;font-weight:650;letter-spacing:-.03em;color:#0f172a}
+.subcap{position:absolute;left:0;right:0;bottom:36px;text-align:center;font-size:20px;font-weight:500;color:#64748b}
+.stage{position:absolute;left:50%;top:48%;transform:translate(-50%,-52%);width:920px}
+.card{background:#fff;border:1px solid #e2e8f0;border-radius:28px;box-shadow:0 24px 80px rgba(15,23,42,.08),0 2px 8px rgba(15,23,42,.04);overflow:hidden}
+.bar{display:flex;align-items:center;gap:8px;padding:14px 18px;border-bottom:1px solid #f1f5f9;background:#fafafa}
+.dot{width:10px;height:10px;border-radius:50%}
+.d1{background:#f87171}.d2{background:#fbbf24}.d3{background:#4ade80}
+.barlabel{margin-left:8px;font-size:13px;font-weight:600;color:#64748b}
+.body{padding:28px 32px 32px}
+.h{font-size:28px;font-weight:700;letter-spacing:-.03em;margin-bottom:6px}
+.h em{font-style:normal;color:#2563eb}
+.p{font-size:16px;color:#64748b;margin-bottom:20px}
+.ta{border:1px solid #e2e8f0;border-radius:18px;padding:18px 20px;min-height:120px;font-size:15px;line-height:1.55;color:#0f172a;background:#f8fafc}
+.ta.muted{color:#94a3b8}
+.row{display:flex;justify-content:space-between;align-items:center;margin-top:14px}
+.chips{display:flex;gap:8px}
+.chip{font-size:12px;font-weight:650;padding:6px 12px;border-radius:999px;background:#eff6ff;color:#2563eb}
+.btn{width:40px;height:40px;border-radius:999px;background:#2563eb;display:flex;align-items:center;justify-content:center}
+.btn svg{fill:#fff}
+.bubble{background:#0f172a;color:#fff;border-radius:18px;padding:14px 16px;font-size:14px;line-height:1.5;max-width:88%;margin-left:auto;margin-bottom:16px}
+.asst{display:flex;gap:12px;align-items:flex-start}
+.mark{width:32px;height:32px;border-radius:10px;background:#2563eb;flex-shrink:0}
+.stats{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0 14px}
+.stat{font-size:12px;font-weight:700;padding:5px 10px;border-radius:999px}
+.sg{background:#ecfdf5;color:#059669}.sa{background:#fffbeb;color:#d97706}.sr{background:#fef2f2;color:#dc2626}
+.cite{border:1px solid #e2e8f0;border-radius:14px;padding:12px 14px;margin-bottom:10px;display:flex;gap:10px;background:#fff}
+.cite mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:13px;color:#0f172a}
+.cite .meta{font-size:12px;font-weight:650;margin-top:4px}
+.cite .reason{font-size:12px;color:#64748b;margin-top:2px}
+.ok{color:#059669}.warn{color:#d97706}.bad{color:#dc2626}
+.icon{width:20px;height:20px;border-radius:50%;flex-shrink:0;margin-top:2px}
+.ig{background:#059669}.ir{background:#dc2626}.ia{background:#d97706}
+.title-only{position:absolute;left:50%;top:46%;transform:translate(-50%,-50%);text-align:center;width:90%}
+.title-only h1{font-size:72px;font-weight:700;letter-spacing:-.04em;line-height:1.1}
+.title-only h1 em{font-style:normal;color:#2563eb}
+.title-only p{margin-top:18px;font-size:24px;color:#64748b;font-weight:500}
+.cta{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);text-align:center}
+.cta .logo{font-size:56px;font-weight:750;letter-spacing:-.04em}
+.cta .logo em{font-style:normal;color:#2563eb}
+.cta .url{margin-top:16px;font-size:28px;font-weight:650;color:#2563eb}
+.cta .tag{margin-top:12px;font-size:18px;color:#64748b}</style></head><body>
+<div class=bg></div>
+<div class=corner>Cite<em>Safe</em></div>
+<div class=badge>Step 4</div>
+<div class=stage><div class=card>
+  <div class=bar><span class="dot d1"></span><span class="dot d2"></span><span class="dot d3"></span><span class=barlabel>Before you file</span></div>
+  <div class=body style="text-align:center;padding:48px 40px">
+    <div style="font-size:15px;font-weight:700;color:#2563eb;letter-spacing:.12em;text-transform:uppercase;margin-bottom:14px">Exportable proof</div>
+    <div style="font-size:34px;font-weight:700;letter-spacing:-.03em;line-height:1.25;margin-bottom:18px">Statuses you can save<br>before partner review</div>
+    <div style="display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-bottom:22px">
+      <span class="stat sg">Verified</span>
+      <span class="stat sa">Needs Review</span>
+      <span class="stat sr">Could Not Verify</span>
+    </div>
+    <div style="display:inline-block;background:#2563eb;color:#fff;font-weight:700;font-size:15px;padding:14px 28px;border-radius:999px">Export report</div>
+  </div>
+</div></div>
+<div class=caption>Export. Then file — or don&apos;t.</div>
+<div class=subcap>The trust layer sits after the draft.</div>
+</body></html>
